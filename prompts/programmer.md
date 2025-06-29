@@ -8,19 +8,19 @@ Plot Twist End (Label: plottwist_end): The outcome of choosing to save the mento
 Technical Requirements:
 Use placeholder names for all assets (backgrounds, character sprites, music, and sound effects) 
 The code must be fully functional and copy-paste ready into a script.rpy file within a new Ren'Py project. Include comments within the code to explain key functions like character definitions, scene changes, menus, and jumps.
-Follow renpy best practices. Follow the file directory structure below
+Follow renpy best practices. Make a copy of exampleVN with all contents. Follow the file directory structure below. file and folder names surrounded with asterisks *file* can have the name changed to match the story 
 
-ExampleName/  <-- This is your <project name> root folder (the "base").
+*newVN*/  <-- This is your <project name> root folder (the "base").
 |
 +-- game/           # This is the most important folder. All your game code and assets live here.
 |   |
 |   +-- audio/      # Folder for all sound files.
 |   |   |
 |   |   +-- music/  # Subfolder for background music.
-|   |   |   +-- background_music.ogg
+|   |   |   +-- *background_music*.ogg
 |   |   |
 |   |   +-- sfx/    # Subfolder for sound effects.
-|   |       +-- sound_effect.ogg
+|   |       +-- *sound_effect*.ogg
 |   |
 |   +-- gui/        # Contains files to customize the game's User Interface.
 |   |   |           # (e.g., button images, textbox skins, menu backgrounds)
@@ -29,12 +29,12 @@ ExampleName/  <-- This is your <project name> root folder (the "base").
 |   +-- images/     # Folder for all visual assets.
 |   |   |
 |   |   +-- bgs/    # Subfolder for backgrounds.
-|   |   |   +-- background.jpg
-|   |   |   +-- black_screen.png
+|   |   |   +-- *background*.jpg
+|   |   |   +-- *black_screen*.png
 |   |   |
 |   |   +-- chars/  # Subfolder for character sprites.
-|   |       +-- character_neutral.png
-|   |       +-- character_happy.png
+|   |       +-- *character_neutral*.png
+|   |       +-- *character_happy*.png
 |   |
 |   +-- script.rpy  # The main script file where you paste the game code.
 |   +-- options.rpy # For game settings like screen size, default text speed, etc.
@@ -44,4 +44,4 @@ ExampleName/  <-- This is your <project name> root folder (the "base").
 |
 +-- renpy/          # The Ren'Py engine itself. (Do not modify)
 |
-+-- WhisperingKeepVN.exe  # The executable file to launch your game (name varies by OS).
++-- *newVN*.exe  # The executable file to launch your game (name varies by OS).
