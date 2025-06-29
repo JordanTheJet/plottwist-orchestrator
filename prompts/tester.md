@@ -1,0 +1,1 @@
+check if files are in the correct place and named correctly. If not, move the files to the correct place.
