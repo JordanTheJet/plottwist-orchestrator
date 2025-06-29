@@ -1,145 +1,180 @@
-# -- Character Definitions -----------------------------------------------------------
-# Defines the characters that will appear in the game. The narrator is set to
-# Anakin's perspective, so any text not assigned to a character will be his thoughts.
-define narrator = Character(None, kind=nvl)
-define obi = Character("Obi-Wan Kenobi", color="#66a3ff")
-define ana = Character("Anakin Skywalker", color="#ff4d4d")
-define pad = Character("Padmé Amidala", color="#ffffff")
-define pal = Character("Darth Sidious", color="#cc0000")
+# This is the main script file for the Ren'Py visual novel.
+# It contains the story, character definitions, and game logic.
+
+# -- Character Definitions -----------------------------------------------------
+# Define the characters that will appear in the game.
+# The color codes are for the character names in the dialogue box.
+
+define a = Character("Anakin", color="#c8c8ff")
+define o = Character("Obi-Wan", color="#add8e6")
+define p = Character("Padmé", color="#ffc0cb")
+define s = Character("Sidious", color="#ff0000")
+define narrator = Character(None, kind=nvl, what_prefix='"', what_suffix='"')
 
 
-# -- Image Placeholders --------------------------------------------------------------
-# Defines placeholder images for backgrounds and characters.
-# In a real project, these would be replaced with actual image files.
-image bg mustafar = "images/mustafar_bg.jpg"
-image obiwan_injured = "images/obiwan_injured.png"
-image padme_worried = "images/padme_worried.png"
-image palpatine_smug = "images/palpatine_smug.png"
+# -- Image and Asset Definitions -----------------------------------------------
+# Define placeholder images for backgrounds and characters.
+# In a real project, you would replace these with your actual image files.
+
+image bg mustafar = "images/bgs/mustafar_bridge.jpg"
+image bg black = "images/bgs/black_screen.png"
+
+image anakin neutral = "images/chars/anakin_neutral.png"
+image anakin angry = "images/chars/anakin_angry.png"
+image anakin conflicted = "images/chars/anakin_conflicted.png"
+
+image obiwan neutral = "images/chars/obiwan_neutral.png"
+image obiwan injured = "images/chars/obiwan_injured.png"
+
+image padme worried = "images/chars/padme_worried.png"
+image padme horrified = "images/chars/padme_horrified.png"
+
+image sidious smiling = "images/chars/sidious_smiling.png"
 
 
-# -- The Game Starts Here ------------------------------------------------------------
+# -- The Game Starts Here ------------------------------------------------------
 
 label start:
-    # -- Scene Setup -----------------------------------------------------------------
-    # Establishes the initial scene with a background, music, and NVL mode for
-    # first-person narration.
+
+    # -- Scene Setup -----------------------------------------------------------
+    # Set the initial scene with background, music, and character sprites.
+
     scene bg mustafar
-    play music "audio/tense_music.ogg" loop
-    window show
-    nvl clear
+    play music "audio/music/epic_battle.ogg" fadein 1.0
 
-    # -- Introduction from Anakin's POV ----------------------------------------------
-    "The air tasted of ash and failure. My master, my friend, lay defeated on the black sand, his robes charred, his body broken by my hand."
-    "He had the high ground, just as he always preached. But he underestimated my pain. My power."
+    show anakin angry at center
+    show obiwan neutral at left
 
-    # -- Display Obi-Wan -------------------------------------------------------------
-    show obiwan_injured at center
+    # -- Introduction Dialogue -------------------------------------------------
+
+    o "It's over, Anakin! I have the high ground!"
+
+    a "You underestimate my power!"
+
+    o "Don't try it."
+
+    # -- The Duel's Climax -----------------------------------------------------
+    # The script follows the divergent path from the test_scenario.md.
+
+    narrator nvl "But this time, Anakin doesn't hesitate. He feints left, rolls through the ash, and surges under the leap with an upward slash."
+
+    play sound "audio/sfx/lightsaber_clash.ogg"
     
-    obi "It's over, Anakin! I have the high ground!"
+    hide obiwan neutral
+    show obiwan injured at left
     
-    "His words were a faint echo of a lesson I had long since unlearned. I didn't hesitate."
-    "A feint, a roll, a surge of motion under his leap. Steel met flesh. His lightsaber flew from his grasp, and he tumbled to the ground."
+    o "Argh!"
 
-    show obiwan_injured at center with dissolve
+    narrator nvl "Obi-Wan's lightsaber flies from his hand. He tumbles to the ground, clutching a burned shoulder, coughing through the sulfur."
 
-    ana "You taught me to trust my instincts. Bad lesson."
-    obi "(gasping) Anakin... please. Let this end."
-    ana "No. It *begins* now. I see it all clearly. The Jedi lied. The Sith used me. But I’ll burn them *all* down."
-
-    "My blade hummed inches from his throat. The heat, the rage... it was all I had left. But then..."
-
-    # -- Padmé's Arrival -------------------------------------------------------------
-    hide obiwan_injured
-    show padme_worried at center
+    show anakin angry at center
     
-    "A voice. Her voice. Cutting through the haze of my fury."
+    a "You taught me to trust my instincts. Bad lesson."
+
+    o "Anakin… please. Let this end."
+
+    a "No. It *begins* now. I see it all clearly. The Jedi lied. The Sith used me. But I’ll burn them *all* down."
+
+    narrator nvl "He holds the blade inches from Obi-Wan’s throat — but stops. A flicker of pain flashes across his face."
+
+    # -- Padmé's Arrival -------------------------------------------------------
+
+    show padme worried at right
     
-    pad "Anakin!"
+    p "Anakin!"
 
-    "I deactivated my saber with a hiss. She stood at the edge of the platform, her face a mask of horror and disbelief."
+    hide anakin angry
+    show anakin conflicted at center
 
-    pad "(shaking) Is this what we fought for? Is this who you are now?"
-    ana "I did it for *you*. For us. To protect what we—"
-    pad "(interrupting) You *killed* children, Anakin!"
+    narrator nvl "Anakin turns, and his saber deactivates with a hiss. Obi-Wan watches, helpless."
 
-    "Her words were a physical blow. Before I could answer, the air boomed. A ship descended, flooding the ridge in a sinister red light."
+    p "Is this what we fought for? Is this who you are now?"
 
-    # -- Palpatine's Arrival ---------------------------------------------------------
-    hide padme_worried
-    show palpatine_smug at center
+    a "I did it for *you*. For us. To protect what we—"
 
-    ana "He followed you here?"
-    pad "(softly) He followed *you*."
+    p "You *killed* children, Anakin!"
 
-    "A blast wave knocked her from her feet. I turned, my eyes blazing, as Sidious descended the ramp, a grotesque grin plastered on his face."
+    narrator nvl "Anakin flinches. Suddenly — the air *booms* as Palpatine’s ship descends behind them. Red light floods the ridge."
 
-    pal "My apprentice. You’ve done well. Now finish it. Kill the Jedi — and the woman — and rise as Lord Vader."
+    # -- Palpatine's Arrival and the Pivotal Choice ----------------------------
+    
+    play sound "audio/sfx/ship_landing.ogg"
+    
+    show sidious smiling at right
+    hide padme worried
+    show padme horrified at farright
 
-    "His words hung in the sulfurous air. Kill Obi-Wan. Kill... Padmé. My wife. The mother of my child."
-    "My lightsaber ignited, its blue flame a stark contrast to the hellscape around us. My destiny stood before me. But which one?"
+    a "He followed you here?"
 
-    # -- The Pivotal Choice ----------------------------------------------------------
-    # This menu presents the player with a critical choice that determines the ending.
+    p "He followed *you*."
+
+    s "My apprentice. You’ve done well. Now finish it. Kill the Jedi — and the woman — and rise as Lord Vader."
+
+    narrator nvl "Anakin stares at Obi-Wan. Then at Padmé. Then at Sidious. He ignites his blade."
+
+    # -- The Menu: Player's Choice ---------------------------------------------
+    # This is the pivotal choice that determines the ending.
+
     menu:
-        "Embrace my destiny as Vader.":
-            jump normal_end
-
-        "I will not be a pawn. Not anymore.":
+        "\"I am no one's pawn!\"":
             jump plottwist_end
 
+        "\"I will do what I must.\"":
+            jump normal_end
 
-# -- Normal Ending -------------------------------------------------------------------
-# This is the outcome if the player chooses to obey Palpatine.
-label normal_end:
-    "A cold clarity washed over me. The Jedi were weak. Padmé did not understand. Only power mattered."
-    "I turned to Obi-Wan. There was no malice in the movement, only a grim finality."
+
+# -- Endings -------------------------------------------------------------------
+
+label plottwist_end:
+
+    # -- Plot Twist Ending -----------------------------------------------------
+    # Anakin turns on Palpatine, choosing his own path.
+
+    show anakin angry at center
     
-    show obiwan_injured at center
+    a "I’m *no one’s* pawn!"
+
+    narrator nvl "He turns his blade on Palpatine, who recoils in shock. A furious battle erupts, not of Jedi versus Sith, but of pure, untamed rage against calculated evil."
     
-    ana "Goodbye, Master."
+    play sound "audio/sfx/lightsaber_ignite.ogg"
     
-    "The blue blade swung. He didn't even try to resist."
-    
-    hide obiwan_injured
-    
-    "Then, I faced Padmé. Her eyes, wide with terror, would haunt me forever. But the future of the galaxy required sacrifice."
-    
-    show padme_worried at center
-    
-    ana "I am sorry."
-    
-    "Another swing. Silence fell upon Mustafar, broken only by the roar of the lava and the satisfied chuckle of my new master."
-    
-    hide padme_worried
-    show palpatine_smug at center
-    
-    pal "Rise, Lord Vader."
-    
-    "And I did. Over the ashes of my past, I rose. The galaxy would learn to fear my name."
-    
-    nvl clear
+    narrator nvl "Anakin, fueled by betrayal, forces Sidious back. He grabs Padmé, pulling her toward his ship."
+
+    a "We're leaving. Now!"
+
+    narrator nvl "They escape into the shadows of the galaxy, leaving both Jedi and Sith behind. The galaxy believes Anakin Skywalker is dead. But in the Outer Rim, whispers begin of a warrior in black who fights both sides, his fury burning hotter than any star."
+
+    scene bg black
+    "The war for the soul of the galaxy is not over. It’s only gone rogue."
+
     return
 
 
-# -- Plot Twist Ending ---------------------------------------------------------------
-# This is the outcome if the player chooses to defy Palpatine.
-label plottwist_end:
-    "His words echoed in my mind. Kill the Jedi... and the woman. My master... and my wife."
-    "He saw them as obstacles. Pawns to be swept from the board. But he was wrong."
-    "Padmé was everything. The Jedi... the Sith... they were the illusion."
-    
-    "My blade was ignited. But this time, I turned it on Palpatine."
+label normal_end:
 
-    show palpatine_smug at center
-    
-    ana "(roaring) I’m *no one’s* pawn!"
+    # -- Normal Ending ---------------------------------------------------------
+    # Anakin embraces the dark side and becomes Darth Vader.
 
-    "I lunged, not as a Jedi, not as a Sith, but as a man with nothing left to lose but the woman he loved."
-    "Sidious recoiled, his grin replaced by a snarl of surprise. He was powerful, but my rage was a fire he had stoked for too long."
-    "I grabbed Padmé, pulling her toward her ship as I deflected the lightning from his fingertips."
+    show anakin angry at center
     
-    "We escaped into the shadows of the galaxy, leaving Mustafar and the broken bodies of my past behind."
-    "The galaxy would think Anakin Skywalker was dead. Let them. A new path lay before me, one forged in fire and fury, with only one law: protect her."
+    a "I will do what I must."
+
+    narrator nvl "Anakin turns to Obi-Wan, his eyes burning with cold fire. There is no hesitation."
     
-    nvl clear
+    play sound "audio/sfx/lightsaber_ignite.ogg"
+    play sound "audio/sfx/final_blow.ogg"
+
+    hide obiwan injured
+    
+    p "Anakin, no!"
+
+    narrator nvl "He strikes down his former master. He then turns to Padmé, a single tear falling down his cheek before his expression hardens into a mask of pure darkness."
+
+    s "Excellent, Lord Vader. Rise."
+
+    narrator nvl "Anakin Skywalker is dead. In his place stands Darth Vader, the Emperor's new fist. The hope of the galaxy dies with him on the black sands of Mustafar."
+
+    scene bg black
+    "The future is now set. The Empire will reign. There is no one left to stop it."
+
     return
