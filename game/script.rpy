@@ -1,129 +1,145 @@
-# script.rpy
-# This script was generated based on the story context of an alternate ending
-# to the duel on Mustafar between Anakin and Obi-Wan.
+# -- Character Definitions -----------------------------------------------------------
+# Defines the characters that will appear in the game. The narrator is set to
+# Anakin's perspective, so any text not assigned to a character will be his thoughts.
+define narrator = Character(None, kind=nvl)
+define obi = Character("Obi-Wan Kenobi", color="#66a3ff")
+define ana = Character("Anakin Skywalker", color="#ff4d4d")
+define pad = Character("Padmé Amidala", color="#ffffff")
+define pal = Character("Darth Sidious", color="#cc0000")
 
-# -- Character Definitions ------------------------------------------------------
-# Define the characters that will appear in the game.
-# The narrator is "me", representing Anakin's first-person perspective.
-# In Ren'Py, it's good practice to define characters and images in an init block.
-init:
-    # Define placeholder assets for backgrounds and character sprites.
-    image bg mustafar_bridge = "placeholder_bg_mustafar.jpg"
-    image obiwan_defeated = "placeholder_obiwan_defeated.png"
-    image padme_arrives = "placeholder_padme_arriving.png"
-    image sidious_arrives = "placeholder_sidious_arriving.png"
 
-    # Define the characters that will appear in the game.
-    define me = Character("[povname]", color="#e0ac28")
-    define o = Character("Obi-Wan Kenobi", color="#6aadd3")
-    define p = Character("Padmé Amidala", color="#c8a2c8")
-    define s = Character("Darth Sidious", color="#c83232")
+# -- Image Placeholders --------------------------------------------------------------
+# Defines placeholder images for backgrounds and characters.
+# In a real project, these would be replaced with actual image files.
+image bg mustafar = "images/mustafar_bg.jpg"
+image obiwan_injured = "images/obiwan_injured.png"
+image padme_worried = "images/padme_worried.png"
+image palpatine_smug = "images/palpatine_smug.png"
 
-# -- Game Start -----------------------------------------------------------------
+
+# -- The Game Starts Here ------------------------------------------------------------
+
 label start:
-    # Set a default name for the player character.
-    $ povname = "Anakin"
+    # -- Scene Setup -----------------------------------------------------------------
+    # Establishes the initial scene with a background, music, and NVL mode for
+    # first-person narration.
+    scene bg mustafar
+    play music "audio/tense_music.ogg" loop
+    window show
+    nvl clear
 
-    # Play placeholder music and sound effects
-    play music "placeholder_tense_music.ogg" loop
-    play sound "placeholder_lava_rumble.ogg" loop
+    # -- Introduction from Anakin's POV ----------------------------------------------
+    "The air tasted of ash and failure. My master, my friend, lay defeated on the black sand, his robes charred, his body broken by my hand."
+    "He had the high ground, just as he always preached. But he underestimated my pain. My power."
 
-    # -- Scene Setup ------------------------------------------------------------
-    # Set the scene on the volcanic world of Mustafar.
-    scene bg mustafar_bridge
-    show obiwan_defeated at center
-
-    "My lightsaber hums, its heat a familiar comfort against the searing air of Mustafar."
-    "He lies before me, defeated. My master. My brother."
-    "I should feel triumphant, but all I feel is the burning rage that brought me here."
-
-    o "Anakin... please. Let this end."
-
-    me "No. It *begins* now. I see it all clearly. The Jedi lied. The Sith used me. But I’ll burn them *all* down."
-
-    "I hold the blade inches from Obi-Wan’s throat. A flicker of pain, not my own, stops me."
-
-    # Padmé arrives on the scene.
-    show padme_arrives at right with dissolve
-    p "Anakin!"
-
-    "Padmé. Her voice cuts through the haze of my anger."
-    "I deactivate my saber with a hiss."
-
-    p "Is this what we fought for? Is this who you are now?"
-    me "I did it for *you*. For us. To protect what we have."
-    p "You *killed* children, Anakin!"
-
-    "Her words are a physical blow. Before I can answer, the air booms."
-
-    # Palpatine's ship arrives.
-    hide padme_arrives
-    show sidious_arrives at right with dissolve
+    # -- Display Obi-Wan -------------------------------------------------------------
+    show obiwan_injured at center
     
-    "His ship. He followed her. Or..."
+    obi "It's over, Anakin! I have the high ground!"
+    
+    "His words were a faint echo of a lesson I had long since unlearned. I didn't hesitate."
+    "A feint, a roll, a surge of motion under his leap. Steel met flesh. His lightsaber flew from his grasp, and he tumbled to the ground."
 
-    me "He followed you here?"
-    p "He followed *you*."
+    show obiwan_injured at center with dissolve
 
-    "A blast wave knocks Padmé from her feet. And then he is there, descending the ramp, his grin a mask of evil."
+    ana "You taught me to trust my instincts. Bad lesson."
+    obi "(gasping) Anakin... please. Let this end."
+    ana "No. It *begins* now. I see it all clearly. The Jedi lied. The Sith used me. But I’ll burn them *all* down."
 
-    s "My apprentice. You’ve done well. Now finish it. Kill the Jedi — and the woman — and rise as Lord Vader."
+    "My blade hummed inches from his throat. The heat, the rage... it was all I had left. But then..."
 
-    "His words echo in my mind. Kill Obi-Wan. Kill Padmé. Rise."
-    "My blade ignites once more. This is the moment of choice. The galaxy holds its breath."
+    # -- Padmé's Arrival -------------------------------------------------------------
+    hide obiwan_injured
+    show padme_worried at center
+    
+    "A voice. Her voice. Cutting through the haze of my fury."
+    
+    pad "Anakin!"
 
-    # -- The Pivotal Choice -----------------------------------------------------
-    # A menu presents the player with a critical decision that will lead to
-    # one of two different endings.
+    "I deactivated my saber with a hiss. She stood at the edge of the platform, her face a mask of horror and disbelief."
+
+    pad "(shaking) Is this what we fought for? Is this who you are now?"
+    ana "I did it for *you*. For us. To protect what we—"
+    pad "(interrupting) You *killed* children, Anakin!"
+
+    "Her words were a physical blow. Before I could answer, the air boomed. A ship descended, flooding the ridge in a sinister red light."
+
+    # -- Palpatine's Arrival ---------------------------------------------------------
+    hide padme_worried
+    show palpatine_smug at center
+
+    ana "He followed you here?"
+    pad "(softly) He followed *you*."
+
+    "A blast wave knocked her from her feet. I turned, my eyes blazing, as Sidious descended the ramp, a grotesque grin plastered on his face."
+
+    pal "My apprentice. You’ve done well. Now finish it. Kill the Jedi — and the woman — and rise as Lord Vader."
+
+    "His words hung in the sulfurous air. Kill Obi-Wan. Kill... Padmé. My wife. The mother of my child."
+    "My lightsaber ignited, its blue flame a stark contrast to the hellscape around us. My destiny stood before me. But which one?"
+
+    # -- The Pivotal Choice ----------------------------------------------------------
+    # This menu presents the player with a critical choice that determines the ending.
     menu:
-        "I am the master of my own destiny.":
-            me "I’m *no one’s* pawn!"
-            jump plottwist_end
-
-        "This is my destiny. I will have peace.":
-            me "Yes, my master."
+        "Embrace my destiny as Vader.":
             jump normal_end
 
+        "I will not be a pawn. Not anymore.":
+            jump plottwist_end
 
-# -- Endings --------------------------------------------------------------------
 
-# -- Plot Twist Ending ----------------------------------------------------------
-# This is the outcome if the player chooses to defy Darth Sidious.
-label plottwist_end:
-    "I turn my blade on Sidious, the true enemy."
-    "His smile vanishes, replaced by a snarl of fury."
-
-    s "So be it... traitor."
-
-    "He raises his hands, and lightning arcs between them. But I am ready."
-    "I leap, not away, but towards him. Towards my true fate."
-    "The war for my soul is not over. It has just gone rogue."
-
-    scene black
-    "To be continued..."
+# -- Normal Ending -------------------------------------------------------------------
+# This is the outcome if the player chooses to obey Palpatine.
+label normal_end:
+    "A cold clarity washed over me. The Jedi were weak. Padmé did not understand. Only power mattered."
+    "I turned to Obi-Wan. There was no malice in the movement, only a grim finality."
+    
+    show obiwan_injured at center
+    
+    ana "Goodbye, Master."
+    
+    "The blue blade swung. He didn't even try to resist."
+    
+    hide obiwan_injured
+    
+    "Then, I faced Padmé. Her eyes, wide with terror, would haunt me forever. But the future of the galaxy required sacrifice."
+    
+    show padme_worried at center
+    
+    ana "I am sorry."
+    
+    "Another swing. Silence fell upon Mustafar, broken only by the roar of the lava and the satisfied chuckle of my new master."
+    
+    hide padme_worried
+    show palpatine_smug at center
+    
+    pal "Rise, Lord Vader."
+    
+    "And I did. Over the ashes of my past, I rose. The galaxy would learn to fear my name."
+    
+    nvl clear
     return
 
 
-# -- Normal Ending --------------------------------------------------------------
-# This is the outcome if the player chooses to obey Darth Sidious.
-label normal_end:
-    "I turn back to Obi-Wan. His eyes are filled with a sorrow that mirrors my own."
-    "But sorrow is a weakness. The Jedi are weak. I am not."
+# -- Plot Twist Ending ---------------------------------------------------------------
+# This is the outcome if the player chooses to defy Palpatine.
+label plottwist_end:
+    "His words echoed in my mind. Kill the Jedi... and the woman. My master... and my wife."
+    "He saw them as obstacles. Pawns to be swept from the board. But he was wrong."
+    "Padmé was everything. The Jedi... the Sith... they were the illusion."
+    
+    "My blade was ignited. But this time, I turned it on Palpatine."
 
-    me "Goodbye, Master."
+    show palpatine_smug at center
+    
+    ana "(roaring) I’m *no one’s* pawn!"
 
-    "The blue blade falls. There is no sound but the sizzle of energy and the end of a friendship."
-    "I turn to Padmé, her face a portrait of horror."
-
-    me "He turned you against me."
-    p "You have done that yourself."
-
-    "I raise my hand, and she crumples to the ground, unconscious. She will learn. They will all learn."
-    "I kneel before my true master."
-
-    me "The Jedi are no more. I am yours, Lord Vader."
-    s "Rise, my friend. Rise and bring order to my galaxy."
-
-    scene black
-    "The galaxy falls to darkness..."
+    "I lunged, not as a Jedi, not as a Sith, but as a man with nothing left to lose but the woman he loved."
+    "Sidious recoiled, his grin replaced by a snarl of surprise. He was powerful, but my rage was a fire he had stoked for too long."
+    "I grabbed Padmé, pulling her toward her ship as I deflected the lightning from his fingertips."
+    
+    "We escaped into the shadows of the galaxy, leaving Mustafar and the broken bodies of my past behind."
+    "The galaxy would think Anakin Skywalker was dead. Let them. A new path lay before me, one forged in fire and fury, with only one law: protect her."
+    
+    nvl clear
     return
