@@ -352,11 +352,12 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    add gui.main_menu_background at center
 
     ## This empty frame darkens the main menu.
-    frame:
-        style "main_menu_frame"
+    ## This empty frame darkens the main menu.
+    # frame:
+    #     style "main_menu_frame"
 
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
